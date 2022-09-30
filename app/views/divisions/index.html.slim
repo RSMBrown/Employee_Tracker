@@ -1,0 +1,33 @@
+- if user_signed_in?
+    p
+        |  Logged in as 
+        strong
+        = current_user.name
+        | . 
+        = current_user.role
+        | . 
+        = link_to 'Edit profile', edit_user_registration_path
+        |  | 
+        = link_to "Logout", destroy_user_session_path, method: :delete
+    h1 
+        | Divisions
+
+    h2 
+        -@divisions.each do |division|
+            =link_to division.name, division
+            br
+
+
+    =link_to "New Division", new_division_path(@division)
+    br 
+    =link_to "Employees", users_employees_path
+    p 
+        -if current_user.role == 'admin'
+            br 
+            =link_to "Users", users_path 
+
+- else
+    p
+        = link_to "Sign up", new_user_registration_path
+        |  | 
+        = link_to "Login", new_user_session_path

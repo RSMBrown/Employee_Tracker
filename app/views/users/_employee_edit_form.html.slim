@@ -1,0 +1,17 @@
+= form_for(@user, url: '/users/employee_update') do |form|
+        =form.hidden_field :role, :value => 'employee'
+    .field
+        = form.label :name
+        br
+        = form.text_field :name
+    .field
+        = form.label :surname
+        br
+        = form.text_field :sname
+    .field
+        = form.label :division
+        br
+        = form.select :division, Division.all.collect{|division| [division.name, division.name]}, prompt: 'Choose one...' 
+        = form.hidden_field :user_id, :value => @user.id
+    .actions
+        = form.submit "Edit user"

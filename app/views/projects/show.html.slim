@@ -1,0 +1,43 @@
+- if user_signed_in?
+    p
+        |  Logged in as 
+        strong
+        = current_user.name
+        | . 
+        = current_user.role
+        | . 
+        = link_to 'Edit profile', edit_user_registration_path
+        |  | 
+        = link_to "Logout", destroy_user_session_path, method: :delete
+    h1 
+        | Project
+
+    h2 
+            =@project.title
+            br 
+
+    h3 
+        | Employees on Project 
+
+    p 
+        -@users.each do |user|
+            -if user.role == 'employee' && @project.user_id
+                =user.name_with_initial
+            br
+
+
+    =link_to "Edit Project", edit_project_path(@project)
+
+    br 
+
+    =link_to "Delete Project", project_path(@project),
+                        method: :delete,
+                        data: { confirm: "Are you sure?" }
+
+    br 
+
+- else
+    p
+        = link_to "Sign up", new_user_registration_path
+        |  | 
+        = link_to "Login", new_user_session_path

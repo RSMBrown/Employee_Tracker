@@ -1,0 +1,35 @@
+- if user_signed_in?
+    p
+        |  Logged in as 
+        strong
+        = current_user.name
+        | . 
+        = current_user.role
+        | . 
+        = link_to 'Edit profile', edit_user_registration_path
+        |  | 
+        = link_to "Logout", destroy_user_session_path, method: :delete
+
+    h1 
+        | Projects 
+        
+        br 
+    p
+        -@projects.each do |project|
+            =link_to project.title, project
+
+
+    =link_to "New Projects", new_project_path
+    br 
+    =link_to "Employees", users_employees_path
+
+    p 
+        -if current_user.role == 'admin'
+            br 
+            =link_to "Users", users_path 
+
+- else
+    p
+        = link_to "Sign up", new_user_registration_path
+        |  | 
+        = link_to "Login", new_user_session_path

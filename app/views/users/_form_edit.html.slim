@@ -1,0 +1,16 @@
+= form_for(@user, url: '/users/update') do |f|
+    .field
+        = f.label :role
+        br
+        = f.select :role, @user.roles, include_blank: true
+    .field
+        = f.label :name
+        br
+        = f.text_field :name
+    .field
+        = f.label :surname
+        br
+        = f.text_field :sname
+        br 
+        
+        = f.submit "Edit user"

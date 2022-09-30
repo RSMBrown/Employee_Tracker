@@ -1,0 +1,34 @@
+
+= form_for(@user, :url => '/users/employee_create') do |f|
+    .field
+        = f.label :email
+        br
+        = f.email_field :email, autofocus: true, autocomplete: "email"
+        =f.hidden_field :role, :value => 'employee'
+    .field
+        = f.label :name
+        br
+        = f.text_field :name
+    .field
+        = f.label :surname
+        br
+        = f.text_field :sname
+    .field
+        = f.label :password
+        - if @minimum_password_length
+        em
+            | (
+            = @minimum_password_length
+            |  characters minimum)
+        br
+        = f.password_field :password, autocomplete: "new-password"
+    .field
+        = f.label :password_confirmation
+        br
+        = f.password_field :password_confirmation, autocomplete: "new-password"
+    .field
+        = f.label :division
+        br
+        = f.select :division, Division.all.collect{|division| [division.name]}, prompt: 'Choose one...' 
+    .actions
+        = f.submit "Create user"

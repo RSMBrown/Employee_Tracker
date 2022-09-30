@@ -1,0 +1,60 @@
+- if user_signed_in?
+    p
+        |  Logged in as 
+        strong
+        = current_user.name
+        | . 
+        = current_user.role
+        | . 
+        = link_to 'Edit profile', edit_user_registration_path
+        |  | 
+        = link_to "Logout", destroy_user_session_path, method: :delete
+
+    h1 
+        | #{@user.name} #{@user.sname}
+        
+        br 
+    p 
+        =@user.email 
+        br
+        =@user.role
+        br
+        =@user.division
+        br
+        -@projects.each do |project|
+            =project.title
+
+    p 
+        -if current_user.role == 'hr_manager'
+            =link_to "Edit employee", users_employee_edit_path(user_id: @user.id)
+            br 
+            =link_to "Remove employee", users_employees_path(user_id: @user.id),
+                                        method: :delete,
+                                        data: { confrim: "Are you sure?" }
+            br 
+            =link_to "Employees", users_employees_path 
+            br 
+            =link_to "Divisions", divisions_path
+
+    p 
+        -if current_user.role == 'admin'
+            =link_to "Edit user", edit_user_path(user_id: @user.id)
+            br 
+            =link_to "Remove user", user_path(user_id: @user.id),
+                                        method: :delete,
+                                        data: { confrim: "Are you sure?" }
+            br 
+            =link_to "Employees", users_employees_path 
+            br 
+            =link_to 'All Users', users_path 
+            br 
+            =link_to "Divisions", divisions_path
+            br 
+            =link_to "Projects", projects_path
+            br 
+
+- else
+    p
+        = link_to "Sign up", new_user_registration_path
+        |  | 
+        = link_to "Login", new_user_session_path
