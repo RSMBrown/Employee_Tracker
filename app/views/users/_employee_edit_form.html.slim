@@ -1,6 +1,6 @@
 = form_for(@user, url: '/users/employee_update') do |form|
-        =form.hidden_field :role, :value => 'employee'
     .field
+        =form.hidden_field :role, :value => 'employee'
         = form.label :name
         br
         = form.text_field :name

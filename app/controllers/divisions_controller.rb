@@ -20,8 +20,10 @@ class DivisionsController < ApplicationController
         authorize @division
 
         if @division.save 
+            flash[:error] = 'new division successfully created!'
             redirect_to @division
         else
+            flash[:error] = 'New division failed!'
             render :new 
         end 
     end 
@@ -36,8 +38,10 @@ class DivisionsController < ApplicationController
         authorize @division
 
         if @division.update(division_params) 
+            flash[:error] = 'Update division successful!'
             redirect_to @division
         else
+            flash[:error] = 'Update division failed!'
             render :edit  
         end 
     end 

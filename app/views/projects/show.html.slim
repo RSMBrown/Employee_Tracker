@@ -20,9 +20,8 @@
         | Employees on Project 
 
     p 
-        -@users.each do |user|
-            -if user.role == 'employee' && @project.user_id
-                =user.name_with_initial
+        -@users.each do |employee|
+            =employee.name_with_initial
             br
 
 
@@ -35,6 +34,7 @@
                         data: { confirm: "Are you sure?" }
 
     br 
+    =link_to "All Projects", projects_path
 
 - else
     p

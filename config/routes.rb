@@ -13,6 +13,7 @@ Rails.application.routes.draw do
     get '/home' => 'users#home'
     post 'users/create' => 'users#create'
     patch '/users/update' => 'users#update'
+    put 'users/update' => 'users#update'
   end 
 
   resources :divisions

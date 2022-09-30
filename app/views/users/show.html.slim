@@ -25,7 +25,7 @@
             =project.title
 
     p 
-        -if current_user.role == 'hr_manager'
+        -if current_user.role == 'hr_manager' && @user.role == 'employee'
             =link_to "Edit employee", users_employee_edit_path(user_id: @user.id)
             br 
             =link_to "Remove employee", users_employees_path(user_id: @user.id),

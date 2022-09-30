@@ -5,10 +5,9 @@ div
         =form.text_field :title  
 
         br
-
         =form.label "Employees on project"
         br
-        =form.collection_check_boxes :user_id, @employees, :id, :name_with_initial do |x|
+        =form.collection_check_boxes :user_ids, @employees, :id, :name_with_initial do |x|
             =x.check_box
             =x.label
             br

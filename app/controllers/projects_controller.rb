@@ -7,7 +7,7 @@ class ProjectsController < ApplicationController
 
     def show 
         @project = Project.find(params[:id])
-        @users = User.all
+        @users = @project.users.all 
         authorize @project
     end 
 
@@ -24,7 +24,7 @@ class ProjectsController < ApplicationController
     end 
 
     def create 
-        @project = current_user.projects.create(project_params)
+        @project = Project.create(project_params)
         @users = User.all
         @employees = []
         @users.each do |user|
@@ -34,9 +34,11 @@ class ProjectsController < ApplicationController
         end 
         authorize @project
 
-        if @project.save 
+        if @project.save
+            flash[:success] = 'New project successfully created!'
             redirect_to @project 
         else
+            flash[:error] = 'New project failed!'
             render :new 
         end 
     end 
@@ -54,33 +56,35 @@ class ProjectsController < ApplicationController
     end 
 
     def update 
-        @project = current_user.projects.find(params[:id])
+        @project = Project.find(params[:id])
         @users = User.all
         @employees = []
         @users.each do |user|
-            if user.role == 'employee'
+            if user.role == 'employee' 
                 @employees.push(user)
             end 
         end 
         authorize @project
 
         if @project.update(project_params) 
+            flash[:success] = 'New project successfully updated!'
             redirect_to @project 
         else
+            flash[:error] = 'Update project failed!'
             render :edit  
         end 
     end 
 
     def destroy 
         @project = Project.find(params[:id])
-        authorize @project
         @project.destroy 
 
-        redirect_to root_path 
+        redirect_to projects_path
+        authorize @project
     end 
 
     private 
     def project_params
-        params.require(:project).permit(:title, :user_id)
+        params.require(:project).permit(:title, user_ids:[])
     end 
 end

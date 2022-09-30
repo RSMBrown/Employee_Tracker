@@ -19,8 +19,10 @@ class UsersController < ApplicationController
         @user = User.create(user_params)
 
         if @user.save 
+            flash[:success] = 'New user successfully created!'
             redirect_to @user 
         else 
+            flash[:error] = 'creation failed!!'
             render :new 
         end 
     end 
@@ -33,8 +35,10 @@ class UsersController < ApplicationController
         @user = User.find_by(params[:user_id])
 
         if @user.update!(user_params)
+            flash[:success] = 'New user successfully updated!'
             redirect_to @user 
         else 
+            flash[:error] = 'Update failed!!'
             render :edit 
         end 
     end 
@@ -43,7 +47,11 @@ class UsersController < ApplicationController
         @user = User.find(params[:user_id])
         @user.destroy
 
-        redirect_to users_employees_path
+        if current_user.role == 'hr_manager'
+            redirect_to users_employees_path
+        else 
+            redirect_to users_path 
+        end 
     end 
 
     def employee_index
@@ -58,8 +66,10 @@ class UsersController < ApplicationController
         @user = User.create(user_employee_params)
 
         if @user.save
+            flash[:success] = 'New employee successfully created!'
             redirect_to users_employees_path
         else 
+            flash[:error] = 'creation failed!!'
             render :employee_new 
         end 
     end 
@@ -72,8 +82,10 @@ class UsersController < ApplicationController
         @user = User.find_by(params[:user_id])
 
         if @user.update!(user_employee_params)
+            flash[:success] = 'New employee successfully created!'
             redirect_to @user
         else 
+            flash[:error] = 'Update failed!!'
             render :employee_edit
         end 
     end 
