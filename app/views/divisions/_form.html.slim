@@ -6,4 +6,11 @@ div
 
         br
 
+        =form.label "Employees in division"
+        br
+        =form.collection_check_boxes :user_ids, @employees, :id, :name_with_initial do |x|
+            =x.check_box
+            =x.label
+            br
+        
         =form.submit

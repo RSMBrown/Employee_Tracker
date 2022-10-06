@@ -15,6 +15,11 @@
     h2 
             =@division.name
 
+    h3 
+            -@users.each do |user|
+                =user.name_with_initial
+                br 
+
 
     =link_to "Edit division", edit_division_path(@division)
 

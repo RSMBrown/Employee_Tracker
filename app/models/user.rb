@@ -6,7 +6,8 @@ class User < ApplicationRecord
 
   has_many :project_users, dependent: :destroy
   has_many :projects, through: :project_users
-  has_many :divisions 
+  has_many :division_users, dependent: :destroy
+  has_many :divisions, through: :division_users
 
   def roles
     %w{project_manager hr_manager employee admin}
