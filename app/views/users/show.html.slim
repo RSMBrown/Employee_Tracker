@@ -21,8 +21,16 @@
         br
         =@user.division
         br
-        -@projects.each do |project|
-            =project.title
+    h3
+        | Projects
+        br 
+        -if @projects.present? 
+            -@projects.each do |project|
+                p    
+                    =project.title
+                    br
+        -else 
+            | No projects yet!  
 
     p 
         -if current_user.role == 'hr_manager' && @user.role == 'employee'
@@ -51,6 +59,12 @@
             =link_to "Divisions", divisions_path
             br 
             =link_to "Projects", projects_path
+            br 
+    p 
+        -if current_user.role == 'project_manager'
+            =link_to "Projects", projects_path
+            br 
+            =link_to "Employees", users_employees_path 
             br 
 
 - else
